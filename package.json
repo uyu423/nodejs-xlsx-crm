@@ -1,0 +1,18 @@
+{
+  "name": "nodejs-xlsx-analize",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uyu423/nodejs-xlsx-analize.git"
+  },
+  "author": "Yowu",
+  "bugs": {
+    "url": "https://github.com/uyu423/nodejs-xlsx-analize/issues"
+  },
+  "homepage": "https://github.com/uyu423/nodejs-xlsx-analize#readme"
+}
