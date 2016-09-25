@@ -1,22 +1,11 @@
-import excelParser from 'excel-parser';
+import XLSX from 'xlsx';
 import path from 'path';
 import fs from 'fs';
 
 export function uploadXlsxFileType1(req, res) {
   console.log(req.file);
-    excelParser.parse({
-    //  inFile: path.join(__dirname, '../tmp/' + req.file.filename),
-      inFile: req.file.path,
-      worksheet: 1,
-      skipEmpty: true
-    }, (err, records) => {
-      if(err) throw err;
-      else {
-        let whereAt = [];
-        for(let i=1; i<records.length; i++) {
-          whereAt.push(records[i][0]);
-        }
-        res.send(records);
-      }
-    })
+  const workbook = XLSX.readFile(req.file.path);
+  const json = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+
+  res.send(json[0]);
 }

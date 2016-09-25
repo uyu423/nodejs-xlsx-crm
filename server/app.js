@@ -13,7 +13,6 @@ import webpack from 'webpack';
 /* route file import */
 import route from './route';
 
-import excelParser from 'excel-parser';
 import controller from './controllers';
 
 /* multer config */
