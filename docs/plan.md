@@ -44,6 +44,7 @@ CREATE TABLE `daae`.`users`(
 CREATE TABLE `daae`.`files`(
   `idx` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '인덱스',
   `filename` VARCHAR(255) NOT NULL COMMENT '파일 이름',
+  `row_count` INT UNSIGNED NOT NULL COMMENT '데이터 갯수',
   `upload_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '업로드 날짜/시간',
   `delete_at` DATETIME NULL DEFAULT NULL COMMENT '삭제 날짜/시간',
   `delete_flag` BOOLEAN NOT NULL DEFAULT FALSE COMMENT '삭제 플레그',
@@ -55,7 +56,8 @@ CREATE TABLE `daae`.`files`(
 CREATE TABLE `daae`.`file_type1`(
   `idx` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `file_idx` INT UNSIGNED NOT NULL,
-  `where_at` DATETIME NULL,
+  `order_where` VARCHAR(255) NULL DEFAULT NULL COMMENT '어디서 주문',
+  `order_number` VARCHAR(255) NOT NULL COMMENT '주문번호',
   `order_at` DATETIME NULL,
   `price_total` INT NULL,
   `price_one` INT NULL,
