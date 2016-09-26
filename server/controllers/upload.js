@@ -6,7 +6,11 @@ import colors from 'colors';
 import { insertFileInfo, insertFileDatas } from '../models';
 
 export function uploadXlsxFileType1(req, res) {
-  console.log(req.file);
+  if(req.file == undefined) {
+    res.status(500).send({
+      "mseg" : "File Not Exist. Please Contact Developer"
+    })
+  }
   const workbook = XLSX.readFile(req.file.path);
   const json = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
   insertFileInfo(req.file.originalname, json.length, (err, result) => {
@@ -35,7 +39,9 @@ export function uploadXlsxFileType1(req, res) {
         if(err2) res.status(500).send(err2);
         else {
           console.log("File Datas Insert OK".green);
-          res.send(json[0]);
+          res.send({
+            mseg : "File Upload OK. File Id : " + result.insertId
+          });
         }
       });
     }
