@@ -19,10 +19,15 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "classnames": "^2.2.5",
+    "colors": "^1.1.2",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
     "express-validator": "^2.20.10",
+    "fs": "0.0.1-security",
     "morgan": "^1.7.0",
+    "multer": "^1.2.0",
+    "mysql": "^2.11.1",
+    "node-qsb": "0.0.3-1",
     "path": "^0.12.7",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.3",
@@ -33,7 +38,8 @@
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.2",
     "webpack-dev-server": "^1.16.1",
-    "webpack-hot-middleware": "^2.12.2"
+    "webpack-hot-middleware": "^2.12.2",
+    "xlsx": "^0.8.0"
   },
   "devDependencies": {
     "babel-core": "^6.14.0",
