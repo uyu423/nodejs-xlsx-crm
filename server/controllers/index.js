@@ -1,3 +1,4 @@
-import { uploadXlsxFileType1 as uploader } from './upload';
+import { uploadXlsxFileType1 as type1Uploader } from './upload';
+import { deleteFile } from './file'
 
-export default { uploader };
+export default { type1Uploader, deleteFile };

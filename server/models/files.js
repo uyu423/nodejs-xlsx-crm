@@ -11,3 +11,11 @@ export const insertFileInfo = (filename, rowCnt, callback) => {
     else callback(null, result);
   });
 }
+
+export const deleteFileByIdx = (fileIdx, callback) => {
+  let qs = new qsb().delete('files').where('idx', '=', fileIdx);
+  execute(qs, (err, result) => {
+    if(err) callback(err, null);
+    else callback(null, result);
+  })
+}

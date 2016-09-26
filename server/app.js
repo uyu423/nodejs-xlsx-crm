@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
 import expressValidator from 'express-validator';
-import multer from 'multer';
 
 import webpackDevServer from 'webpack-dev-server';
 import webpack from 'webpack';
@@ -13,18 +12,8 @@ import webpack from 'webpack';
 /* route file import */
 import route from './route';
 
-import controller from './controllers';
-
-/* multer config */
-const storage = multer.diskStorage({
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + '-' + Date.now() + '.xls')
-  }
-});
-
 /* const variable define */
 const app = express();
-const upload = multer({ storage : storage });
 
 /* load .env settings */
 dotenv.load({
@@ -40,7 +29,6 @@ app.use(expressValidator());
 /* routing */
 app.use('/', express.static(path.join(__dirname, '../public')));
 app.use('/api', route);
-app.post('/test', upload.single('xlsx'), controller.uploader);
 app.use('/assets', express.static(path.join(__dirname, '../bower_components')));
 app.get('*', (req, res) => {
 	res.sendFile(path.resolve(__dirname, './../public/index.html'));
