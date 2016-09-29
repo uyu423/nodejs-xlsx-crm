@@ -26,9 +26,10 @@ export const execute = (qs, callback) => {
       process.exit(1);
     }
     else {
-      connection.query(qs.build().returnString(), function (err, rows) {
+      qs.build();
+      connection.query(qs.returnString(), function (err, rows) {
         connection.release();
-        console.log(String(qs).inverse);
+        console.log(String(qs.returnString()).inverse);
         if(err) {
           callback(err, null);
           console.error(String(err).red);
