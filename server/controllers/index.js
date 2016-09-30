@@ -1,4 +1,4 @@
 import { uploadXlsxFileType1 as type1Uploader } from './upload';
-import { deleteFile } from './file'
+import { deleteFile, getFiles } from './file';
 
-export default { type1Uploader, deleteFile };
+export default { type1Uploader, deleteFile, getFiles };

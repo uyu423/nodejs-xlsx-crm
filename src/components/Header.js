@@ -21,7 +21,7 @@ export default class Header extends React.Component {
           <LinkContainer to="/manage">
             <NavItem>파일 관리</NavItem>
           </LinkContainer>
-          <NavDropdown title="통계" id="basic-nav-dropdown">
+          <NavDropdown title="데이터" id="basic-nav-dropdown">
             <LinkContainer to="/viewer">
               <MenuItem>전체 보기</MenuItem>
             </LinkContainer>

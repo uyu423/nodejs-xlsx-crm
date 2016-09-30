@@ -1,65 +1,117 @@
 import React from 'react';
-import { Row, Col, PageHeader, Table, Button } from 'react-bootstrap';
+import { Row, Col, PageHeader, Table, Button, FormControl, Alert } from 'react-bootstrap';
 import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
+import { fileUploadRequest } from 'actions/file';
+import { fileListRequest, fileDeleteRequest } from 'actions/fileList';
+
+import { FileListItem } from 'components';
 
 class FileManager extends React.Component {
   constructor(props) {
     super(props);
     this.handleFileUpload = this.handleFileUpload.bind(this);
+    this.handleOnChangeFile = this.handleOnChangeFile.bind(this);
+    this.handleFileDelete = this.handleFileDelete.bind(this);
+    this.showAlert = this.showAlert.bind(this);
+    this.state = {
+      isUploading : false
+    };
   }
-  handleFileUpload(files) {
-    console.log('Received files: ', files);
+  componentDidMount() {
+    this.props.fileListRequest();
+  }
+  showAlert() {
+    alert("개발 예정입니다.");
+  }
+  handleFileUpload(file) {
+    console.log('Received file: ', file);
+    return this.props.fileUploadRequest(file).then(
+      () => {
+          if(this.props.fileStatus === 'SUCCESS') {
+            console.log("OK");
+            this.props.fileListRequest();
+            return true;
+          }
+          else {
+            console.log("FAILURE");
+            return false;
+          }
+          this.setState({
+            isUploading : false
+          });
+      }
+    );
+  }
+  handleFileDelete(fileIdx) {
+    return this.props.fileDeleteRequest(fileIdx).then(
+      () => {
+        if(this.props.fileDeleteStatus === 'SUCCESS') {
+          alert("파일 삭제 성공");
+          this.props.fileListRequest();
+          return true;
+        }
+        else {
+          alert("파일 삭제 실패");
+          return false;
+      }
+    }
+    );
+  }
+  handleOnChangeFile(e) {
+    this.setState({
+      isUploading : true
+    });
+    const file = e.target.files[0];
+    const formData = new FormData();
+    formData.append('xlsx', file, file.name);
+    this.handleFileUpload(formData);
   }
   render() {
     const ts = {
       "textAlign" : "center"
     };
+    const mapToComponents = data => {
+      return data.map((item, i) => {
+        return (
+          <FileListItem
+            data={item}
+            key={item.idx}
+            handleFileDelete={this.handleFileDelete}
+          />);
+      });
+    };
     return(
       <Row>
         <Row>
         <Col md={12}>
-          <PageHeader>엑셀 파일 업로더(xls, xlsx)</PageHeader>
-          <Dropzone onDrop={this.handleFileUpload}>
-              <div>이 곳을 눌러 엑셀 파일을 선택하거나 Drag & Drop하세요.</div>
-          </Dropzone>
+          <PageHeader>파일 업로드</PageHeader>
+          <Alert bsStyle="info">
+            <strong>xls, xlsx</strong> 확장자를 가진 엑셀 파일만 업로드 할 수 있습니다.
+          </Alert>
+          <FormControl id="formControlsFile"
+            type="file"
+            label="File"
+            onChange={this.handleOnChangeFile} />
         </Col>
         </Row>
         <Row>
           <Col md={12}>
-            <PageHeader>업로드 파일 관리</PageHeader>
+            <PageHeader>파일 관리</PageHeader>
             <Table responsive>
               <thead>
                 <tr>
                   <th style={ts}>Index</th>
                   <th>파일 이름</th>
-                  <th style={ts}>데이터 갯수</th>
                   <th style={ts}>업로드 날짜</th>
+                  <th style={ts}>데이터 갯수</th>
                   <th style={ts}>Show Datas</th>
-                  <th style={ts}>삭제</th>
+                  <th style={ts}>데이터 삭제</th>
                   <th style={ts}>삭제 날짜</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td style={ts}>16</td>
-                  <td>복탱이0929.xls</td>
-                  <td style={ts}>321</td>
-                  <td style={ts}>2016-09-29 21:47:40</td>
-                  <td style={ts}><Button bsStyle="primary">Show</Button></td>
-                  <td style={ts}><Button bsStyle="danger">삭제</Button></td>
-                  <td style={ts}></td>
-                </tr>
-                <tr>
-                  <td style={ts}>17</td>
-                  <td>2016-09-17 13_00.xls</td>
-                  <td style={ts}>112</td>
-                  <td style={ts}>2016-09-29 21:47:47</td>
-                  <td style={ts}><Button disabled>삭제됨</Button></td>
-                  <td style={ts}><Button disabled>삭제됨</Button></td>
-                  <td style={ts}>2016-09-29 21:47:47
-</td>
-                </tr>
+                { mapToComponents(this.props.fileList) }
               </tbody>
             </Table>
           </Col>
@@ -70,17 +122,27 @@ class FileManager extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state);
   return {
-    fileStatus : state.file.file
+    fileStatus : state.file.status,
+    fileListStatus : state.fileList.status,
+    fileList : state.fileList.list,
+    fileDeleteStatus : state.fileDelete.status
   }
 }
 
-const mapDispacthToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     fileUploadRequest : (xlsx) => {
       return dispatch(fileUploadRequest(xlsx));
+    },
+    fileListRequest : () => {
+      return dispatch(fileListRequest());
+    },
+    fileDeleteRequest : (fileIdx) => {
+      return dispatch(fileDeleteRequest(fileIdx));
     }
   }
 }
 
-export default connect(mapStateToProps, mapDispacthToProps)(FileManager);
+export default connect(mapStateToProps, mapDispatchToProps)(FileManager);

@@ -6,10 +6,8 @@ import {
 import update from 'react-addons-update';
 
 const initState = {
-  file : {
     status : 'INIT',
-    xlsx : null
-  }
+    binary : null
 };
 
 export default function file(state, action) {
@@ -19,21 +17,15 @@ export default function file(state, action) {
   switch(action.type) {
     case FILE_UPLOAD :
       return update(state, {
-        file : {
-          status : { $set : 'WATING' }
-        }
+        status : { $set : 'WATING' }
       });
     case FILE_UPLOAD_SUCCESS :
       return update(state, {
-        file : {
-          status : { $set : 'SUCCESS' }
-        }
+        status : { $set : 'SUCCESS' }
       });
     case FILE_UPLOAD_FAILURE :
       return update(state, {
-        file : {
-          status : { $set : 'FAILURE' }
-        }
+        status : { $set : 'FAILURE' }
       });
     default :
       return state;

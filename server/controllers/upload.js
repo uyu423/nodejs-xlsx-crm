@@ -6,7 +6,7 @@ import colors from 'colors';
 import { insertFileInfo, insertFileDatas } from '../models';
 
 function colChecker(col) {
-  if(col == undefined) return "데이터 없음";
+  if(col === undefined) return "데이터 없음";
   else return col;
 }
 
@@ -15,15 +15,16 @@ function removeComma(col) {
 }
 
 function ifStar(obj, str) {
-  if(obj[str] == undefined) return str + '*';
+  if(obj[str] === undefined) return str + '*';
   else return str;
 }
 
 export function uploadXlsxFileType1(req, res) {
-  if(req.file == undefined) {
+  console.log(req.file);
+  if(req.file === undefined) {
     res.status(500).send({
       "mseg" : "File Not Exist. Please Contact Developer"
-    })
+    });
   }
   const workbook = XLSX.readFile(req.file.path);
   const json = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
@@ -61,5 +62,5 @@ export function uploadXlsxFileType1(req, res) {
         }
       });
     }
-  })
+  });
 }
