@@ -4,6 +4,7 @@ import Dropzone from 'react-dropzone';
 import { connect } from 'react-redux';
 import { fileUploadRequest } from 'actions/file';
 import { fileListRequest, fileDeleteRequest } from 'actions/fileList';
+import FontAwesome from 'react-fontawesome';
 
 import { FileListItem } from 'components';
 
@@ -87,7 +88,7 @@ class FileManager extends React.Component {
         <Col md={12}>
           <PageHeader>파일 업로드</PageHeader>
           <Alert bsStyle="info">
-            <strong>xls, xlsx</strong> 확장자를 가진 엑셀 파일만 업로드 할 수 있습니다.
+            <FontAwesome name='exclamation-circle'/> <strong>xls, xlsx</strong> 확장자를 가진 엑셀 파일만 업로드 할 수 있습니다.
           </Alert>
           <FormControl id="formControlsFile"
             type="file"
@@ -122,7 +123,6 @@ class FileManager extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     fileStatus : state.file.status,
     fileListStatus : state.fileList.status,

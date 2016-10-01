@@ -9,9 +9,7 @@ export default class FileListItem extends React.Component {
   handleFileDelete() {
     this.props.handleFileDelete(this.props.data.idx);
   }
-  tf(arg) {
-    return moment(arg).format('YYYY-MM-DD HH:mm');
-  }
+  tf(arg) { return moment(arg).format('YYYY-MM-DD HH:mm'); }
   render() {
     const data = this.props.data;
     const ts = {

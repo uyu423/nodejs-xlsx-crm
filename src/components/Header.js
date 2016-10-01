@@ -26,12 +26,16 @@ export default class Header extends React.Component {
               <MenuItem>전체 보기</MenuItem>
             </LinkContainer>
             <MenuItem divider />
-            <MenuItem>최다 주문자(이름)</MenuItem>
-            <MenuItem>최다 주문자(주소)</MenuItem>
-            <MenuItem>최다 주문자(연락처)</MenuItem>
-            <MenuItem divider />
-            <MenuItem>이건 뭐하지</MenuItem>
-          </NavDropdown>`
+            <LinkContainer to="/viewer/ordername">
+              <MenuItem>주문자 이름으로 그룹화</MenuItem>
+            </LinkContainer>
+            <LinkContainer to="/viewer/callnumber">
+              <MenuItem>주문자 연락처로 그룹화</MenuItem>
+            </LinkContainer>
+            <LinkContainer to="/viewer/address">
+              <MenuItem>주소로 그룹화</MenuItem>
+            </LinkContainer>
+          </NavDropdown>
         </Nav>
         <Nav pullRight>
           <NavItem>뭐 넣을까</NavItem>

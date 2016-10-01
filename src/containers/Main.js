@@ -1,6 +1,7 @@
 import React from 'react';
 import { Jumbotron, Button, ButtonToolbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import FontAwesome from 'react-fontawesome';
 
 export default class Main extends React.Component {
   render() {
@@ -11,13 +12,16 @@ export default class Main extends React.Component {
           <p>
           <ButtonToolbar>
             <LinkContainer to="/manage">
-              <Button bsStyle="primary">파일 관리</Button>
+              <Button bsStyle="primary">
+                <FontAwesome name='folder-open'/> 파일 관리</Button>
             </LinkContainer>
             <LinkContainer to="/viewer">
-              <Button bsStyle="primary">데이터 보기</Button>
+              <Button bsStyle="primary">
+                <FontAwesome name='database'/> 데이터 보기</Button>
             </LinkContainer>
             <LinkContainer to="/release">
-              <Button bsStyle="success">릴리즈 노트</Button>
+              <Button bsStyle="success">
+                <FontAwesome name='sticky-note'/> 릴리즈 노트</Button>
             </LinkContainer>
           </ButtonToolbar>
           </p>
