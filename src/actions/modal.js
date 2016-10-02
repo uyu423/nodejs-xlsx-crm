@@ -28,7 +28,7 @@ export function detailModalRequest(idx) {
       console.log("Get Data Idx " + idx);
       dispatch(detailModalReqSuccess(res.data));
     }).catch((err) => {
-      console.log("Get Data Failure");
+      console.log("Get Data Failure", err);
       dispatch(detailModalReqFailure());
     });
   };

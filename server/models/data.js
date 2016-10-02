@@ -39,28 +39,28 @@ export const selectDataByIdx = (idx, cb) => {
   });
 };
 export const selectDataWhereOrdername = (orderName, cb) => {
-  const qs = new qsb().select('file_type1').where('order_name', '=', orderName);
+  const qs = new qsb().select('file_type1').where('order_name', '=', orderName).orderBy('order_at', 'desc');
   execute(qs, (err, result) => {
     if(err) cb(err, null);
     else cb(null, result);
   });
 };
 export const selectDataWhereOrdercall = (orderCall, cb) => {
-  const qs = new qsb().select('file_type1').where('order_call', '=', orderCall);
+  const qs = new qsb().select('file_type1').where('order_call', '=', orderCall).orderBy('order_at', 'desc');
   execute(qs, (err, result) => {
     if(err) cb(err, null);
     else cb(null, result);
   });
 };
 export const selectDataWhereOrderphone = (orderPhone, cb) => {
-  const qs = new qsb().select('file_type1').where('order_phone', '=', orderPhone);
+  const qs = new qsb().select('file_type1').where('order_phone', '=', orderPhone).orderBy('order_at', 'desc');
   execute(qs, (err, result) => {
     if(err) cb(err, null);
     else cb(null, result);
   });
 };
 export const selectDataWhereAddress = (address, cb) => {
-  const qs = new qsb().select('file_type1').where('address', '=', address);
+  const qs = new qsb().select('file_type1').where('address', '=', address).orderBy('order_at', 'desc');
   execute(qs, (err, result) => {
     if(err) cb(err, null);
     else cb(null, result);

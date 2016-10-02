@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Row, Col, PageHeader, Table, Alert, Button, ButtonToolbar, ButtonGroup } from 'react-bootstrap';
 import { getDataRequest } from 'actions/data';
 import { DataItem, OrderDetail } from 'components';
+import { detailModalOn, detailModalOff, detailModalRequest } from 'actions/modal';
 import FontAwesome from 'react-fontawesome';
 import moment from 'moment';
 
@@ -13,21 +14,6 @@ class Viewer extends React.Component {
       date : moment(),
       page : 1,
     };
-  }
-  openModal(idx) {
-    this.setState({
-      modal : true,
-      modalIdx : idx
-    }, () => {
-      console.log(this.state);
-    });
-  }
-  closeModal() {
-    this.setState({
-      modal : false
-    }, () => {
-      console.log(this.state);
-    });
   }
   componentDidMount() {
     this.props.getDataRequest(this.state.date.format('YYYYMMDD'), this.state.page);
@@ -96,6 +82,7 @@ class Viewer extends React.Component {
     };
     return(
       <Row>
+        <OrderDetail flag={this.props.modalFlag} detailModalOff={this.props.detailModalOff}/>
         <Col md={12}>
           <PageHeader>데이터 <small>전체보기 ({this.state.date.format('YYYY-MM-DD')})</small></PageHeader>
               <Alert bsStyle="success">
@@ -147,6 +134,7 @@ const mapStateToProps = (state) => {
   return {
     dataStatus : state.data.status,
     dataRows : state.data.rows,
+    modalFlag : state.modal.flag
   }
 }
 
@@ -154,6 +142,18 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getDataRequest : (date, page) => {
       return dispatch(getDataRequest(date, page));
+    },
+    getDetailRequest : (idx) => {
+      return dispatch(getDetailRequest(idx));
+    },
+    detailModalOn : (idx) => {
+      return dispatch(detailModalOn(idx));
+    },
+    detailModalOff : () => {
+      return dispatch(detailModalOff());
+    },
+    detailModalRequest : (idx) => {
+      return dispatch(detailModalRequest(idx));
     }
   }
 }

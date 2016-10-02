@@ -15,7 +15,7 @@ const initState = {
   },
   request : {
     status : 'INIT',
-    results : {}
+    results : null
   }
 };
 
@@ -45,7 +45,8 @@ export function modalRequest(state, action) {
   switch(action.type) {
     case DETAIL_MODAL_REQ :
       return update(state, {
-        status : { $set : 'WATING' }
+        status : { $set : 'WATING' },
+        results : { $set : null }
       });
     case DETAIL_MODAL_REQ_SUCCESS :
       return update(state, {

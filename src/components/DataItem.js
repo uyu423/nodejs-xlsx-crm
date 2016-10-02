@@ -9,6 +9,7 @@ import { LinkContainer } from 'react-router-bootstrap';
 export default class DataItem extends React.Component {
   constructor(props) {
     super(props);
+    this.handleModalOn = this.handleModalOn.bind(this);
   }
   tf(arg) { return moment(arg).format('YY-MM-DD HH:mm'); }
   shortWhere(arg) {
@@ -35,6 +36,10 @@ export default class DataItem extends React.Component {
       );
     }
   };
+  handleModalOn() {
+    this.props.detailModalOn(this.props.data.idx);
+    this.props.detailModalRequest(this.props.data.idx);
+  }
   render() {
     const ts = { textAlign : 'center' };
     const fg = { color : '#999', textAlign : 'center' };
@@ -86,9 +91,7 @@ export default class DataItem extends React.Component {
           </OverlayTrigger>
         </td>
         <td style={ts}>
-          <LinkContainer to={"/viewer/" + data.idx}>
-            <Button bsSize="xsmall" bsStyle="primary">보기</Button>
-          </LinkContainer>
+            <Button onClick={this.handleModalOn} bsSize="xsmall" bsStyle="primary">보기</Button>
         </td>
         <td style={ts}>
           <DropdownButton bsSize='xsmall' bsStyle="default" title='' id=''>

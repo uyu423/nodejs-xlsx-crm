@@ -13,7 +13,7 @@ export default class Footer extends React.Component {
     return(
         <footer style={fs}>
           <div className='footer' style={s}>
-            <p>DAEA Compnay CRM Program. v0.1.0</p>
+            <p>DAEA Compnay CRM Program. v0.1.0 BETA</p>
             <p>Copyright© 다애컴퍼니. Development by <a href="mailto:uyu423@gmail.com">Yowu</a></p>
           </div>
         </footer>
