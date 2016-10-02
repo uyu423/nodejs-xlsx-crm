@@ -1,33 +1,34 @@
 import {
-  FILE_UPLOAD,
-  FILE_UPLOAD_SUCCESS,
-  FILE_UPLOAD_FAILURE
+   GET_DETAIL,
+   GET_DETAIL_SUCCESS,
+   GET_DETAIL_FAILURE
 } from 'actions/ActionTypes';
 import update from 'react-addons-update';
 
 const initState = {
-    status : 'INIT',
-    binary : null
+  status : 'INIT',
+  results : {}
 };
 
-export default function file(state, action) {
+export default function detail(state, action) {
   if(state === undefined) {
     state = initState;
   }
   switch(action.type) {
-    case FILE_UPLOAD :
+    case GET_DETAIL:
       return update(state, {
         status : { $set : 'WATING' }
       });
-    case FILE_UPLOAD_SUCCESS :
+    case GET_DETAIL_SUCCESS:
       return update(state, {
-        status : { $set : 'SUCCESS' }
+        status : { $set : 'SUCCESS' },
+        results : { $set : action.res.results }
       });
-    case FILE_UPLOAD_FAILURE :
+    case GET_DETAIL_FAILURE:
       return update(state, {
         status : { $set : 'FAILURE' }
       });
-    default :
+    default:
       return state;
   }
 }

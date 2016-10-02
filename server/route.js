@@ -12,11 +12,20 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage : storage });
 
+function checker(req, res, next) {
+  console.log("body : ", req.body);
+  next();
+}
+
 /* Routing Definition */
 router.get('/', (req, res) => {
 	return res.send('es6 express ok');
 });
+
 router.post('/upload/type1', upload.single('xlsx'), controller.type1Uploader);
 router.delete('/delete/:fileIdx', controller.deleteFile);
+router.get('/file', controller.getFiles);
+router.get('/data/detail/:idx', controller.getDataDetail);
+router.get('/data/:date/:page', controller.getDatas);
 
 export default router;

@@ -1,16 +1,27 @@
 import {
   FILE_UPLOAD,
   FILE_UPLOAD_SUCCESS,
-  FILE_UPLOAD_FAILURE
+  FILE_UPLOAD_FAILURE,
 } from './ActionTypes';
 import axios from 'axios';
 
-export function fileUploadRequest() {
+export function fileUploadRequest(formData) {
   return (dispatch) => {
     dispatch(fileUpload());
-    return axios.post("/api/upload/type1").then((res) => {
-      dispacth(fileUploadSuccess());
+    const ops = {
+      method : 'post',
+      url : '/api/upload/type1',
+      data : formData
+    };
+    console.log("OPS : ", ops);
+    return axios(ops).then((res) => {
+      console.log("RES", res);
+      console.log("FORMDATA", formData.get('xlsx'));
+      alert("다음 파일이 업로드 됨 : " + formData.get('xlsx').name);
+      dispatch(fileUploadSuccess());
     }).catch((err) => {
+      console.log("ERR", err);
+      alert("업로드 실패 : " + err);
       dispatch(fileUploadFailure());
     });
   };
