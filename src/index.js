@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // Containers
-import { App, Main, FileManager, Viewer, ViewerCalc } from 'containers';
+import { App, Main, FileManager, Viewer, Detail } from 'containers';
 
 // Router
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
@@ -30,7 +30,7 @@ ReactDOM.render(
 				<IndexRoute component={Main} />
 				<Route path="/manage" component={FileManager}/>
 				<Route path="/viewer" component={Viewer}/>
-        <Route path="/viewer/:group" component={ViewerCalc}/>
+				<Route path="/viewer/:idx" component={Detail}/>
 			</Route>
 		</Router>
 	</Provider>

@@ -8,23 +8,24 @@ export default class Main extends React.Component {
     return(
       <div>
         <Jumbotron>
-          <h1>CRM <small>고객관리 프로그램</small></h1>
-          <p>
+          <h1>CRM <small>고객관리 프로그램 BETA</small></h1>
           <ButtonToolbar>
             <LinkContainer to="/manage">
               <Button bsStyle="primary">
-                <FontAwesome name='folder-open'/> 파일 관리</Button>
+                <FontAwesome name='folder-open'/> 파일 관리
+              </Button>
             </LinkContainer>
             <LinkContainer to="/viewer">
               <Button bsStyle="primary">
-                <FontAwesome name='database'/> 데이터 보기</Button>
+                <FontAwesome name='database'/> 데이터 보기
+              </Button>
             </LinkContainer>
             <LinkContainer to="/release">
               <Button bsStyle="success">
-                <FontAwesome name='sticky-note'/> 릴리즈 노트</Button>
+                <FontAwesome name='sticky-note'/> 릴리즈 노트
+              </Button>
             </LinkContainer>
           </ButtonToolbar>
-          </p>
           <h3>사용 방법</h3>
           <ul>
             <li>흑흑흑흑흑</li>

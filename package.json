@@ -12,6 +12,7 @@
     "url": "git+https://github.com/uyu423/nodejs-xlsx-analize.git"
   },
   "author": "Yowu",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/uyu423/nodejs-xlsx-analize/issues"
   },

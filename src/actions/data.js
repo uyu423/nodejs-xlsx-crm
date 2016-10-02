@@ -4,17 +4,22 @@ import {
   GET_DATA_FAILURE
 } from './ActionTypes';
 import axios from 'axios';
+import moment from 'moment';
 
-export function getDataRequest(page) {
+function dateForm(arg) {
+  return moment(arg, 'YYYYMMDD').format('YYYMMDD');
+}
+
+export function getDataRequest(date, page) {
   return (dispatch) => {
     dispatch(getData());
-    return axios.get('/api/data/' + page).then((res) => {
-      console.log("Get Rows OK, page is " + page);
+    return axios.get('/api/data/' + date + '/' + page).then((res) => {
+      console.log("Get Rows OK, date is " + date + ", page is " + page);
       dispatch(getDataSuccess(res.data));
     }).catch((err) => {
       console.log("Get Rows Error");
       dispatch(getDataFailure());
-    });;
+    });
   };
 }
 

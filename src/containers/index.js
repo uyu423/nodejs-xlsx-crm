@@ -2,6 +2,6 @@ import App from './App';
 import Main from './Main';
 import FileManager from './FileManager';
 import Viewer from './Viewer';
-import ViewerCalc from './ViewerCalc';
+import Detail from './Detail';
 
-export { App, Main, FileManager, Viewer, ViewerCalc };
+export { App, Main, FileManager, Viewer, Detail };

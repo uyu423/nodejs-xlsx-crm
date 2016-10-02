@@ -5,6 +5,9 @@ import { Link } from 'react-router';
 import { LinkContainer } from 'react-router-bootstrap';
 
 export default class Header extends React.Component {
+  showAlertLogin() {
+    alert("로그인 기능은 개발 예정입니다.");
+  }
   render() {
     return(
       <Navbar>
@@ -25,20 +28,10 @@ export default class Header extends React.Component {
             <LinkContainer to="/viewer">
               <MenuItem>전체 보기</MenuItem>
             </LinkContainer>
-            <MenuItem divider />
-            <LinkContainer to="/viewer/ordername">
-              <MenuItem>주문자 이름으로 그룹화</MenuItem>
-            </LinkContainer>
-            <LinkContainer to="/viewer/callnumber">
-              <MenuItem>주문자 연락처로 그룹화</MenuItem>
-            </LinkContainer>
-            <LinkContainer to="/viewer/address">
-              <MenuItem>주소로 그룹화</MenuItem>
-            </LinkContainer>
           </NavDropdown>
         </Nav>
         <Nav pullRight>
-          <NavItem>뭐 넣을까</NavItem>
+          <NavItem onClick={this.showAlertLogin.bind(this)}><FontAwesome name="sign-in"/> 로그인</NavItem>
         </Nav>
       </Navbar.Collapse>
       </Navbar>

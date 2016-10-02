@@ -25,6 +25,7 @@ router.get('/', (req, res) => {
 router.post('/upload/type1', upload.single('xlsx'), controller.type1Uploader);
 router.delete('/delete/:fileIdx', controller.deleteFile);
 router.get('/file', controller.getFiles);
-router.get('/data/:page', controller.getDatas);
+router.get('/data/detail/:idx', controller.getDataDetail);
+router.get('/data/:date/:page', controller.getDatas);
 
 export default router;
