@@ -89,7 +89,7 @@ class Viewer extends React.Component {
         <Col md={12}>
           <PageHeader>데이터 <small>전체보기 ({this.state.date.format('YYYY-MM-DD')})</small></PageHeader>
               <Alert bsStyle="success">
-                <FontAwesome name='exclamation-circle'/> <strong>결제 날짜</strong>를 기준으로 내림차순 정렬되며 날짜별로 100개씩 출력됩니다.
+                <FontAwesome name='exclamation-circle'/> <strong>재주문 건수</strong>와 <strong>결제 날짜</strong>를 기준으로 내림차순 정렬되며 날짜별로 100개씩 출력됩니다.
                 <span className="pull-right">
                 <ButtonToolbar>
                   <Button disabled={ this.state.date.format('YYYMMDD') == moment().format('YYYMMDD') ? true : false } onClick={this.setDateToday.bind(this)} bsSize="xsmall" bsStyle="primary">오늘 날짜로</Button>
