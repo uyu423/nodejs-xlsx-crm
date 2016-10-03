@@ -20,8 +20,11 @@ export default class DataItem extends React.Component {
       case '지': case 'G': return (
         <Label bsStyle="success">G</Label>
       );
+      case '데' : return (
+        <Label>X</Label>
+      );
       default: return (
-        <Label>?</Label>
+        <Label>외</Label>
       );
     }
   }
@@ -39,6 +42,13 @@ export default class DataItem extends React.Component {
   handleModalOn() {
     this.props.detailModalOn(this.props.data.idx);
     this.props.detailModalRequest(this.props.data.idx);
+  }
+  judgeDate(date) {
+    if(date === "Invalid date") {
+      return "데이터 없음";
+    }
+    else
+      return date;
   }
   render() {
     const ts = { textAlign : 'center' };
@@ -60,7 +70,7 @@ export default class DataItem extends React.Component {
             {this.shortWhere(data.order_where[0])}
           </OverlayTrigger>
         </td>
-        <td style={ this.isEmpty(data.order_at) ? fg : ts }>{this.tf(data.order_at)}</td>
+        <td style={ this.isEmpty(data.order_at) ? fg : ts }>{this.judgeDate(this.tf(data.order_at))}</td>
         <td style={ this.isEmpty(data.price_total) ? fg : ts }>{data.price_total}</td>
         <td style={ this.isEmpty(data.order_name) ? fg : ts }>
           {data.order_name}&nbsp;{this.isReorder(data.order_name_count, data.order_name)}

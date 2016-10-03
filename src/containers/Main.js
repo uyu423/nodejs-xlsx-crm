@@ -8,7 +8,7 @@ export default class Main extends React.Component {
     return(
       <div>
         <Jumbotron>
-          <h1>CRM <small>고객관리 프로그램 BETA</small></h1>
+          <h1>CRM <small>고객관리 프로그램</small></h1>
           <ButtonToolbar>
             <LinkContainer to="/manage">
               <Button bsStyle="primary">

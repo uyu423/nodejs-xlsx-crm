@@ -65,13 +65,35 @@ class FileManager extends React.Component {
     });
     const file = e.target.files[0];
     const formData = new FormData();
-    formData.append('xlsx', file, file.name);
-    this.handleFileUpload(formData);
+    if(file !== undefined) {
+      formData.append('xlsx', file, file.name);
+      this.handleFileUpload(formData);
+    }
   }
   render() {
     const ts = {
       "textAlign" : "center"
     };
+    const upWait = (
+      <Alert bsStyle="info">
+        <FontAwesome name='spinner' spin/> 업로드 중입니다..
+      </Alert>
+    );
+    const upSuccess = (
+      <Alert bsStyle="success">
+        <FontAwesome name='check'/> 업로드가 완료되었습니다.
+      </Alert>
+    );
+    const upFailure = (
+      <Alert bsStyle="danger">
+        <FontAwesome name='exclamation-circle'/> 업로드에 실패했습니다.
+      </Alert>
+    );
+    const upInit = (
+      <Alert bsStyle="warning">
+        <FontAwesome name='exclamation-circle'/> <strong>xls, xlsx</strong> 확장자를 가진 엑셀 파일만 업로드 할 수 있습니다.
+      </Alert>
+    );
     const mapToComponents = data => {
       return data.map((item, i) => {
         return (
@@ -87,9 +109,10 @@ class FileManager extends React.Component {
         <Row>
         <Col md={12}>
           <PageHeader>파일 업로드</PageHeader>
-          <Alert bsStyle="info">
-            <FontAwesome name='exclamation-circle'/> <strong>xls, xlsx</strong> 확장자를 가진 엑셀 파일만 업로드 할 수 있습니다.
-          </Alert>
+          { this.props.fileStatus == 'WATING'
+              ? upWait : this.props.fileStatus == 'SUCCESS'
+              ? upSuccess : this.props.fileStatus == 'FAILURE'
+              ? upFailure : upInit }
           <FormControl id="formControlsFile"
             type="file"
             label="File"
@@ -99,7 +122,7 @@ class FileManager extends React.Component {
         <Row>
           <Col md={12}>
             <PageHeader>파일 관리</PageHeader>
-            <Table responsive>
+            <Table hover={true} responsive={true} striped={true}>
               <thead>
                 <tr>
                   <th style={ts}>Index</th>

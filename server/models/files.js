@@ -29,7 +29,7 @@ export const deleteFileByIdx = (fileIdx, callback) => {
 };
 
 export const selectFiles = (callback) => {
-  const qs = new qsb().select('files');
+  const qs = new qsb().select('files').orderBy('upload_at', 'desc');
   execute(qs, (err, result) => {
     if(err) callback(err, null);
     else callback(null, result);

@@ -69,6 +69,9 @@ class Viewer extends React.Component {
     const noneData = (
       <tr><td style={ts} colSpan={13}><FontAwesome name='exclamation-circle'/> 해당 날짜의 데이터가 없습니다.</td></tr>
     );
+    const Loading = (
+      <tr><td colSpan={13} style={ts}><FontAwesome name='spinner' spin/> 데이터를 가져오고 있습니다.</td></tr>
+    );
     const mapToComponents = data => {
       return data.map((item, i) => {
         return (
@@ -101,7 +104,7 @@ class Viewer extends React.Component {
                 </ButtonToolbar>
                 </span>
               </Alert>
-          <Table>
+          <Table hover={true} responsive={true} striped={true}>
             <thead>
               <tr>
               <th style={ts}>Idx</th>
@@ -120,7 +123,9 @@ class Viewer extends React.Component {
               </tr>
             </thead>
             <tbody>
-              { this.props.dataRows.length == 0 ? noneData : mapToComponents(this.props.dataRows) }
+              { this.props.dataStatus == 'WATING'
+                ? Loading : this.props.dataRows.length == 0
+                ? noneData : mapToComponents(this.props.dataRows) }
             </tbody>
           </Table>
         </Col>

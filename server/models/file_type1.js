@@ -1,4 +1,4 @@
-import { execute } from '../config/mysql'
+import { execute } from '../config/mysql';
 import qsb from 'node-qsb';
 
 export const insertFileDatas = (vals, callback) => {
@@ -13,6 +13,7 @@ export const insertFileDatas = (vals, callback) => {
     'order_call',
     'order_phone',
     'product_name',
+    'product_option',
     'product_count',
     'address'
   ];
@@ -24,5 +25,5 @@ export const insertFileDatas = (vals, callback) => {
   execute(qs, (err, result) => {
     if(err) callback(err, null);
     else callback(null, result);
-  })
-}
+  });
+};

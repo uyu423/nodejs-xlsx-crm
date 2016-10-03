@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Label } from 'react-bootstrap';
 import classNames from 'classnames';
 
 export default class Footer extends React.Component {
@@ -13,7 +13,7 @@ export default class Footer extends React.Component {
     return(
         <footer style={fs}>
           <div className='footer' style={s}>
-            <p>DAEA Compnay CRM Program. v0.1.0 BETA</p>
+            <p>DAEA Compnay CRM Program. v0.1.1 <Label bsStyle="success">ALPHA</Label></p>
             <p>Copyright© 다애컴퍼니. Development by <a href="mailto:uyu423@gmail.com">Yowu</a></p>
           </div>
         </footer>

@@ -17,7 +17,6 @@ export function fileUploadRequest(formData) {
     return axios(ops).then((res) => {
       console.log("RES", res);
       console.log("FORMDATA", formData.get('xlsx'));
-      alert("다음 파일이 업로드 됨 : " + formData.get('xlsx').name);
       dispatch(fileUploadSuccess());
     }).catch((err) => {
       console.log("ERR", err);

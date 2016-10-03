@@ -13,10 +13,17 @@ class OrderDetail extends React.Component {
   componentDidMount() {
 //    this.props.req(this.props.idx);
   }
+  judge(date) {
+    console.log(date);
+    if(date === "Invalid date") {
+      return "데이터 없음";
+    }
+    else
+      return date;
+  }
   render() {
     const ths = (
       <tr>
-        <th>Idx</th>
         <th>구분</th>
         <th>주문 번호</th>
         <th>결제 날짜</th>
@@ -29,14 +36,22 @@ class OrderDetail extends React.Component {
     )
     const mapToComponents = data => {
       data.shift();
-      return data.map((item, i) => {
+      if(data.length) {
+        return data.map((item, i) => {
+          return (
+            <DetailItem
+              data={item}
+              key={item.idx}
+            />);
+        });
+      }
+      else {
         return (
-          <DetailItem
-            data={item}
-            key={item.idx}
-          />);
-      });
+          <tr><td style={ts} colSpan={8}><FontAwesome name="exclamation-circle"/> 기존 데이터베이스에 해당 정보가 없습니다.</td></tr>
+        );
+      }
     };
+    const ts = { textAlign : 'center'};
     if(this.props.results) {
       const de = this.props.results.default;
       const on = this.props.results.orderName;
@@ -56,13 +71,15 @@ class OrderDetail extends React.Component {
               </Col>
               <Col md={6}>
                 <p><b>구분 :</b> {de.order_where}</p>
-                <p><b>결제 날짜 :</b> {moment(de.order_at).format('YYYY-MM-DD HH:mm')}</p>
+                <p><b>결제 날짜 :</b> {this.judge(moment(de.order_at).format('YYYY-MM-DD HH:mm'))}</p>
                 <p><b>판매 금액 :</b> {de.price_total}</p>
                 <p><b>판매 단가 :</b> {de.price_one}</p>
                 <p><b>상품명 :</b> {de.product_name}</p>
+                <p><b>주문 옵션 :</b> {de.product_option}</p>
                 <p><b>수량 :</b> {de.product_count}</p>
               </Col>
               <Col md={6}>
+                <p><b>데이터베이스 번호 :</b> {de.idx}</p>
                 <p><b>주문 번호 :</b> {de.order_number}</p>
                 <p><b>주문자 :</b> {de.order_name}</p>
                 <p><b>연락처 :</b> {de.order_call}</p>
@@ -74,7 +91,7 @@ class OrderDetail extends React.Component {
             <Row>
               <Col md={12}>
                 <h4><b>데이터베이스 : 주문자명</b></h4>
-                <Table>
+                <Table hover={true} responsive={true} condensed={true} striped={true}>
                   <thead>{ ths }</thead>
                   <tbody>
                   { de.order_name != '데이터 없음' ? mapToComponents(on) : ''}
@@ -85,7 +102,7 @@ class OrderDetail extends React.Component {
             <Row>
               <Col md={12}>
                 <h4><b>데이터베이스 : 연락처</b></h4>
-                <Table>
+                <Table responsive={true} condensed={true} striped={true}>
                   <thead>{ ths }</thead>
                   <tbody>
                   { de.order_call != '데이터 없음' ? mapToComponents(oc) : ''}
@@ -96,7 +113,7 @@ class OrderDetail extends React.Component {
             <Row>
               <Col md={12}>
                 <h4><b>데이터베이스 : 휴대전화</b></h4>
-                <Table>
+                <Table responsive={true} condensed={true} striped={true}>
                   <thead>{ ths }</thead>
                   <tbody>
                   { de.order_phone != '데이터 없음' ? mapToComponents(op) : ''}
@@ -107,7 +124,7 @@ class OrderDetail extends React.Component {
             <Row>
               <Col md={12}>
                 <h4><b>데이터베이스 : 주소</b></h4>
-                <Table>
+                <Table responsive={true} condensed={true} striped={true}>
                   <thead>{ ths }</thead>
                   <tbody>
                   { de.address != '데이터 없음' ? mapToComponents(a) : ''}
@@ -128,7 +145,7 @@ class OrderDetail extends React.Component {
         <Modal.Header closeButton>
         </Modal.Header>
         <Modal.Body>
-        <h3>Loading...</h3>
+        <h3><FontAwesome name="spinner" spin/> Loading...</h3>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={this.props.detailModalOff}>Close</Button>

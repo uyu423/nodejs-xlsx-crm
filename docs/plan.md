@@ -65,6 +65,7 @@ CREATE TABLE `daae`.`file_type1`(
   `order_call` VARCHAR(255) NULL,
   `order_phone` VARCHAR(255) NULL,
   `product_name` VARCHAR(255) NULL,
+  `product_option` VARCHAR(255) NOT NULL COMMENT '주문 옵션',
   `product_count` INT NULL,
   `address` VARCHAR(255) NULL,
   PRIMARY KEY(`idx`)

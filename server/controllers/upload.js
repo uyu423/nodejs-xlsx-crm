@@ -19,6 +19,13 @@ function ifStar(obj, str) {
   else return str;
 }
 
+function AorB(obj, A, B) {
+  if(obj[A] !== undefined) {
+    return ifStar(obj, A);
+  }
+  else return ifStar(obj, B);
+}
+
 export function uploadXlsxFileType1(req, res) {
   console.log(req.file);
   if(req.file === undefined) {
@@ -28,6 +35,7 @@ export function uploadXlsxFileType1(req, res) {
   }
   const workbook = XLSX.readFile(req.file.path);
   const json = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
+  console.log(json);
   insertFileInfo(req.file.originalname, json.length, (err, result) => {
     if(err) res.status(500).send(err);
     else {
@@ -38,18 +46,19 @@ export function uploadXlsxFileType1(req, res) {
       for(let i=0; i<json.length; i++) {
         arr.push([
           result.insertId,
-          colChecker(json[i][ifStar(json[i], '아이디')]),
+          colChecker(json[i][AorB(json[i], '아이디', '판매처')]),
           colChecker(json[i][ifStar(json[i], '주문번호')]),
-          colChecker(json[i][ifStar(json[i], '결제완료일')]),
+          colChecker(json[i][AorB(json[i], '결제완료일', '주문일자')]),
 //          moment(json[i]['주문일자(결제확인전)'], 'YYYY-MM-DD HH:mm:ss'),
-          removeComma(colChecker(json[i][ifStar(json[i], '판매금액')])),
+          removeComma(colChecker(json[i][AorB(json[i], '판매금액', '판매가')])),
           removeComma(colChecker(json[i][ifStar(json[i], '판매단가')])),
-          colChecker(json[i][ifStar(json[i], '구매자명')]),
-          colChecker(json[i][ifStar(json[i], '구매자 휴대폰')]),
-          colChecker(json[i][ifStar(json[i], '구매자 전화번호')]),
-          colChecker(json[i][ifStar(json[i], '상품명')]),
+          colChecker(json[i][AorB(json[i], '구매자명', '주문자|이름')]),
+          colChecker(json[i][AorB(json[i], '구매자 휴대폰', '주문자|전화번호')]),
+          colChecker(json[i][AorB(json[i], '구매자 전화번호', '주문자|핸드폰')]),
+          colChecker(json[i][AorB(json[i], '몰상품명', '상품명')]),
+          colChecker(json[i][AorB(json[i], '주문옵션', '몰상품속성')]),
           removeComma(colChecker(json[i][ifStar(json[i], '수량')])),
-          colChecker(json[i][ifStar(json[i], '주소')])
+          colChecker(json[i][AorB(json[i], '주소', '수화인|주소1')])
         ]);
       }
       insertFileDatas(arr, (err2, result2) => {
