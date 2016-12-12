@@ -15,7 +15,6 @@ phases:
       - npm run build
   post_build:
     commands:
-      - echo Build completed on `date`
-      - npm run start 
+      - echo Nothing to do in the post_build phase...
 artifacts:
   discard-paths: yes
